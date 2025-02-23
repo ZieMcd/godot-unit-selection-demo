@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8mvdoi3wf70"]
+
+[ext_resource type="Script" path="res://player_interface.gd" id="1_fwy2n"]
+[ext_resource type="PackedScene" uid="uid://dum3yhqj3ad21" path="res://character_test.tscn" id="1_w5l5j"]
+[ext_resource type="Texture2D" uid="uid://btdnswxsxjkhj" path="res://select_trans.png" id="2_qml2l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wyrci"]
+size = Vector3(0.649902, 1, 0.652954)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_yqx7t"]
+vertices = PackedVector3Array(-9.5, 1, -9.5, -9.5, 1, 9.5, 9.5, 1, 9.5, 9.5, 1, -9.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[node name="Level" type="Node3D"]
+
+[node name="Player_Interface" type="Node2D" parent="."]
+script = ExtResource("1_fwy2n")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Player_Interface"]
+modulate = Color(1, 1, 1, 0.4)
+offset_left = 410.0
+offset_top = 206.0
+offset_right = 971.0
+offset_bottom = 444.0
+texture = ExtResource("2_qml2l")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="Camera3D" type="Camera3D" parent="Player_Interface"]
+transform = Transform3D(-1, -8.74228e-08, 6.83677e-15, -2.17249e-08, 0.248504, 0.968631, -8.46804e-08, 0.968631, -0.248504, 0.23932, 15.0974, -4.21496)
+
+[node name="Area3D" type="Area3D" parent="Player_Interface/Camera3D"]
+transform = Transform3D(-1, -2.17249e-08, -8.46804e-08, -8.74228e-08, 0.248504, 0.968631, 7.10543e-15, 0.968631, -0.248504, 0.23932, 0.827982, -13.734)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player_Interface/Camera3D/Area3D"]
+transform = Transform3D(30, 8.44002e-42, -1.25199e-17, -8.67684e-41, 2.918, 1.66723e-31, 1.25199e-17, -1.62166e-32, 30, 0, 0, 0)
+shape = SubResource("BoxShape3D_wyrci")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5675, 0.065861, -0.25219)
+navigation_mesh = SubResource("NavigationMesh_yqx7t")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CharacterTest" parent="." instance=ExtResource("1_w5l5j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36676, 1.64876, 0)
+metadata/is_selected = true
+
+[node name="CharacterTest2" parent="." instance=ExtResource("1_w5l5j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.09307, 1.63128, 0)

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dum3yhqj3ad21"]
+
+[ext_resource type="Script" path="res://character_test.gd" id="1_rjwfr"]
+[ext_resource type="Texture2D" uid="uid://bw88t7ylxrlng" path="res://select.png" id="2_j62fn"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_32gji"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8xcr5"]
+height = 1.44916
+
+[node name="CharacterTest" type="CharacterBody3D" groups=["unit"]]
+script = ExtResource("1_rjwfr")
+metadata/is_selected = false
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+visible = false
+radius = 1.65
+affect_navigation_mesh = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_32gji")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 3.17
+use_3d_avoidance = true
+debug_enabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.4, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_8xcr5")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -0.943838, 0)
+axis = 1
+texture = ExtResource("2_j62fn")
